@@ -25,6 +25,18 @@ router.get("/:id", (req, res) => {
     });
 });
 
+
+//get project actions 
+router.get('/:id/actions', (req, res) => {
+    Projects.getProjectActions(req.params.id)
+    .then(project => {
+        res.status(200).json(project)
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).json({ errorMessage: "server error fetching actions"})
+    })
+})
 //create a project
 router.post("/", validateProject, (req, res) => {
   Projects.insert(req.body)
